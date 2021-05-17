@@ -1,9 +1,9 @@
 
-#include <util.h>
-#include <timer.h>
-#include <common.h>
-#include <errlog.h>
-#include <callback.h>
+#include "util.h"
+#include "timer.h"
+#include "common.h"
+#include "errlog.h"
+#include "callback.h"
 
 #include <string>
 #include <vector>
@@ -12,6 +12,8 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+
+//#define BITCOIN
 
 #if !defined(S_ISDIR)
     #define S_ISDIR(mode) (S_IFDIR==((mode) & S_IFMT))
@@ -63,7 +65,7 @@ static double getMem() {
                 warning("coudln't read process size");
             }
         fclose(f);
-        return (1e-9f*mem)*getpagesize();
+        return (1e-9f*mem)*getpagesize() + 100;
     #elif defined(_WIN64)
         return 0;   // TODO
     #else
@@ -75,72 +77,54 @@ static double getMem() {
     static const size_t gHeaderSize = 80;
     static auto kCoinDirName = ".bitcoin";
     static const uint32_t gExpectedMagic = 0xd9b4bef9;
-#endif
-
-#if defined TESTNET3
+#elif defined TESTNET3
     static const size_t gHeaderSize = 80;
     static auto kCoinDirName = ".bitcoin/testnet3";
     static const uint32_t gExpectedMagic = 0x0709110b;
-#endif
-
-#if defined LITECOIN
+#elif defined LITECOIN
     static const size_t gHeaderSize = 80;
     static auto kCoinDirName = ".litecoin";
     static const uint32_t gExpectedMagic = 0xdbb6c0fb;
-#endif
-
-#if defined DARKCOIN
+#elif defined DARKCOIN
     static const size_t gHeaderSize = 80;
     static auto kCoinDirName = ".darkcoin";
     static const uint32_t gExpectedMagic = 0xbd6b0cbf;
-#endif
-
-#if defined PROTOSHARES
+#elif defined PROTOSHARES
     static const size_t gHeaderSize = 88;
     static auto kCoinDirName = ".protoshares";
     static const uint32_t gExpectedMagic = 0xd9b5bdf9;
-#endif
-
-#if defined FEDORACOIN
+#elif defined FEDORACOIN
     static const size_t gHeaderSize = 80;
     static auto kCoinDirName = ".fedoracoin";
     static const uint32_t gExpectedMagic = 0xdead1337;
-#endif
-
-#if defined PEERCOIN
+#elif defined PEERCOIN
     static const size_t gHeaderSize = 80;
     static auto kCoinDirName = ".ppcoin";
     static const uint32_t gExpectedMagic = 0xe5e9e8e6;
-#endif
-
-#if defined CLAM
+#elif defined CLAM
     static const size_t gHeaderSize = 80;
     static auto kCoinDirName = ".clam";
     static const uint32_t gExpectedMagic = 0x15352203;
-#endif
-
-#if defined PAYCON
+#elif defined PAYCON
     static const size_t gHeaderSize = 80;
     static auto kCoinDirName = ".PayCon";
     static const uint32_t gExpectedMagic = 0x2d3b3c4b;
-#endif
-
-#if defined JUMBUCKS
+#elif defined JUMBUCKS
     static const size_t gHeaderSize = 80;
     static auto kCoinDirName = ".coinmarketscoin";
     static const uint32_t gExpectedMagic = 0xb6f1f4fc;
-#endif
-
-#if defined MYRIADCOIN
+#elif defined MYRIADCOIN
     static const size_t gHeaderSize = 80;
     static auto kCoinDirName = ".myriadcoin";
     static const uint32_t gExpectedMagic = 0xee7645af;
-#endif
-
-#if defined UNOBTANIUM
+#elif defined UNOBTANIUM
     static const size_t gHeaderSize = 80;
     static auto kCoinDirName = ".unobtanium";
     static const uint32_t gExpectedMagic = 0x03b5d503;
+#else //defined BITCOIN
+    static const size_t gHeaderSize = 80;
+    static auto kCoinDirName = ".bitcoin";
+    static const uint32_t gExpectedMagic = 0xd9b4bef9;
 #endif
 
 #define DO(x) x
@@ -576,7 +560,9 @@ static void initCallback(
     gCallback = Callback::find(methodName);
 
     info("starting command \"%s\"", gCallback->name());
-    if(argv[1]) {
+
+    if(argv[1]) 
+    {
         auto i = 0;
         while('-'==argv[1][i]) {
             argv[1][i++] = 'x';
@@ -584,6 +570,7 @@ static void initCallback(
     }
 
     auto ir = gCallback->init(argc, (const char **)argv);
+    
     if(ir<0) {
         errFatal("callback init failed");
     }
@@ -1016,7 +1003,7 @@ int main(
 ) {
 
     auto start = Timer::usecs();
-    fprintf(stderr, "\n");
+    fprintf(stderr, "\n"); //stderr -дескриптор файла C, он представляет собой стандартный вывод ошибок. тоже что и printf только замороченее
     info("mem at start = %.3f Gigs", getMem());
 
     initCallback(argc, argv);

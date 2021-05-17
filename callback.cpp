@@ -5,10 +5,10 @@
 #include <string.h>
 #include <algorithm>
 
-#include <util.h>
-#include <common.h>
-#include <errlog.h>
-#include <callback.h>
+#include "util.h"
+#include "common.h"
+#include "errlog.h"
+#include "callback.h"
 
 static std::vector<Callback*> *callbacks;
 typedef std::map<uintptr_t, Callback*> CBMap;
@@ -27,15 +27,19 @@ Callback *Callback::find(
 
     CBMap found;
     auto sz = strlen(name);
-    for(auto c:*callbacks) {
+    for(auto c:*callbacks) 
+    {
 
         std::vector<const char*> names;
         names.push_back(c->name());
-        c->aliases(names);
+        c->aliases(names); //x3
 
-        for(const auto nm:names) {
+        for(const auto nm:names) 
+        {
             auto x = std::min(sz, strlen(nm));
-            if(0==strncasecmp(nm, name, x)) {
+            if(0==strncasecmp(nm, name, x)) 
+            {
+                //uintptr_t -> представляет собой целочисленный тип без знака, который может хранить указатель данных. Обычно это означает, что он того же размера, что и указатель
                 found[(uintptr_t)c] = c;
             }
         }
