@@ -1,9 +1,9 @@
 
 // secp256k1 tests
 
-#include <test.h>
-#include <util.h>
-#include <common.h>
+#include "test.h"
+#include "util.h"
+#include "common.h"
 #include <string.h>
 
 #define LIST                                                                                                                                                                                                      \

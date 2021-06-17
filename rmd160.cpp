@@ -1,6 +1,6 @@
 
-#include <rmd160.h>
-#include <crypto/ripemd160_btc.h>
+#include "rmd160.h"
+#include "crypto/ripemd160_btc.h"
 
 void rmd160(
           uint8_t *result,

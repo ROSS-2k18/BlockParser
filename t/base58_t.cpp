@@ -1,10 +1,10 @@
 
 // base 58 tests
 
-#include <test.h>
-#include <util.h>
-#include <common.h>
-#include <rmd160.h>
+#include "test.h"
+#include "util.h"
+#include "common.h"
+#include "rmd160.h"
 #include <string.h>
 
 #define TEST_ACTIVE true

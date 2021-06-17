@@ -1,10 +1,12 @@
 
 #include <regex>
 #include <string>
-#include <test.h>
 #include <vector>
 #include <stdio.h>
-#include <timer.h>
+
+#include "timer.h"
+#include "test.h"
+
 #include <assert.h>
 #include <stdarg.h>
 #include <string.h>

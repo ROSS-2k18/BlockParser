@@ -2,8 +2,9 @@
 #include <time.h>
 #include <errno.h>
 #include <stdio.h>
-#include <timer.h>
 #include <sys/time.h>
+
+#include "timer.h"
 
 double Timer::usecs() {
     struct timeval t;

@@ -1,6 +1,6 @@
 
-#include <sha256.h>
-#include <crypto/sha256_btc.h>
+#include "sha256.h"
+#include "crypto/sha256_btc.h"
 
 void sha256(
     uint8_t       *result,

@@ -1,13 +1,15 @@
 #ifndef __UTIL_H__
     #define __UTIL_H__
 
+    #include "common.h"
+    #include "errlog.h"
+    #include "rmd160.h"
+    #include "sha256.h"
+
     #include <string>
     #include <vector>
 
-    #include <common.h>
-    #include <errlog.h>
-    #include <rmd160.h>
-    #include <sha256.h>
+
 
     #if defined(_WIN64)
         #include <io.h>

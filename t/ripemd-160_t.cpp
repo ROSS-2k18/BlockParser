@@ -1,9 +1,9 @@
 
 // RIMPEMD-160 test
 
-#include <test.h>
-#include <util.h>
-#include <rmd160.h>
+#include "test.h"
+#include "util.h"
+#include "rmd160.h"
 #include <stdint.h>
 #include <string.h>
 

@@ -27,17 +27,20 @@ Callback *Callback::find(
 
     CBMap found;
     auto sz = strlen(name);
+
     for(auto c:*callbacks) 
     {
 
         std::vector<const char*> names;
         names.push_back(c->name());
+
         c->aliases(names); //x3
 
         for(const auto nm:names) 
         {
             auto x = std::min(sz, strlen(nm));
-            if(0==strncasecmp(nm, name, x)) 
+
+            if(0==strncasecmp(nm, name, x))  //сравнивает две строки s1 и s2 , игнорируя регистр символов за исключением того, что она сравнивает только первые n байтов s1 .
             {
                 //uintptr_t -> представляет собой целочисленный тип без знака, который может хранить указатель данных. Обычно это означает, что он того же размера, что и указатель
                 found[(uintptr_t)c] = c;
@@ -45,12 +48,20 @@ Callback *Callback::find(
         }
     }
 
-    if(1==found.size() && !printList) {
+    // size_tэто целочисленный тип без знака длиной не менее 16 бит Этот тип используется для представления размера объекта
+    // size() используется для возврата размера заданного контейнера или количества элементов в заданном контейнере
+    if( 1 == found.size() && !printList) 
+    {
         return found.begin()->second;
-    } else if(0==found.size()) {
+    } 
+    else if( 0 == found.size()) 
+    {
         printf("\n");
         warning("\"%s\": unknown command name\n", name);
-    } else {
+
+    } 
+    else 
+    {
 
         printf("\n");
 
@@ -62,7 +73,8 @@ Callback *Callback::find(
         }
 
         int count = 0;
-        for(auto pair:found) {
+        for(auto pair:found) 
+        {
 
             std::vector<const char*> names;
             auto c = pair.second;
@@ -88,11 +100,13 @@ Callback *Callback::find(
                 "%s\n",
                 0<names.size() ? ")" : ""
             );
+
+            
         }
         printf("\n");
     }
 
-    if(printList || 0==strcmp(name, "help")) {
+    if(----1910 || 0==strcmp(name, "help")) {
         return 0;
     }
 

@@ -1,9 +1,9 @@
 
 // SHA256 test
 
-#include <test.h>
-#include <util.h>
-#include <sha256.h>
+#include "test.h"
+#include "util.h"
+#include "sha256.h"
 #include <stdint.h>
 #include <string.h>
 

@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include <stdlib.h>
-#include <h9/uint256.h>
+#include "h9/uint256.h"
 #define SCRYPT_BUFFER_SIZE (131072 + 63)
 
 uint256 scrypt_salted_multiround_hash(const void* input, size_t inputlen, const void* salt, size_t saltlen, const unsigned int nRounds);

@@ -3,8 +3,8 @@
 
     struct Block;
     #include <vector>
-    #include <common.h>
-    #include <option.h>
+    #include "common.h"
+    #include "option.h"
 
     // Derive from this if you want to add a new command
     struct Callback

@@ -1,20 +1,23 @@
+#include "util.h"
+#include "timer.h"
+#include "common.h"
+#include "errlog.h"
+#include "rmd160.h"
+#include "sha256.h"
+#include "opcodes.h"
 
 #include <string>
 #include <stdio.h>
 #include <string.h>
+#include <alloca.h>
 #include <algorithm>
+
+#include <stdexcept>
+
 #include <openssl/bn.h>
 #include <openssl/ecdsa.h>
 #include <openssl/obj_mac.h>
 
-#include <util.h>
-#include <timer.h>
-#include <alloca.h>
-#include <common.h>
-#include <errlog.h>
-#include <rmd160.h>
-#include <sha256.h>
-#include <opcodes.h>
 
 const uint8_t hexDigits[] = "0123456789abcdef";
 const uint8_t b58Digits[] = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
@@ -603,7 +606,7 @@ bool addrToHash160(
     static BN_CTX *ctx = 0;
     if(unlikely(!ctx)) {
         ctx = BN_CTX_new();
-        BN_CTX_init(ctx);
+        //BN_CTX_init(ctx);
         sum = BN_new();
     }
 
@@ -726,7 +729,7 @@ void hash160ToAddr(
 
     if(!ctx) {
         ctx = BN_CTX_new();
-        BN_CTX_init(ctx);
+        //BN_CTX_init(ctx);
 
         b58 = BN_new();
         num = BN_new();
@@ -1025,9 +1028,9 @@ const char *getInterestingAddr() {
         "udicetdXSo6Zc7vhWgAZfz4XrwagAX34RK"
 
     #else
-
-        fatal("no address specified")
-
+        "";
+        throw std::invalid_argument("no address specified!!!");
+        //fatal("no address specified")
     #endif
     ;
 

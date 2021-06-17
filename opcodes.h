@@ -1,7 +1,7 @@
 #ifndef __OPCODE_H__
     #define __OPCODE_H__
 
-    #include <common.h>
+    #include "common.h"
 
     #define OPCODES                     \
         OPCODE(                  0, 00) \

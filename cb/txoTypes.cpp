@@ -1,11 +1,11 @@
 
 // Catalog of all TXO types in the block chain
 
-#include <util.h>
-#include <common.h>
-#include <errlog.h>
+#include "util.h"
+#include "common.h"
+#include "errlog.h"
 #include <string.h>
-#include <callback.h>
+#include "callback.h"
 
 struct TXOTypes:public Callback {
 
