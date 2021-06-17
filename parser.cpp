@@ -557,6 +557,7 @@ static void initCallback(
     if(0==methodName[0]) {
         methodName = "help";
     }
+    
     gCallback = Callback::find(methodName);
 
     info("starting command \"%s\"", gCallback->name());
@@ -928,6 +929,7 @@ static void findBlockFiles() {
 
     gChainSize = 0;
 
+
     auto blockChainDir = getBlockchainDir();
     auto blockDir = blockChainDir + std::string("/blocks");
     info("loading block chain from directory: %s", blockChainDir.c_str());
@@ -1004,9 +1006,15 @@ int main(
 
     auto start = Timer::usecs();
     fprintf(stderr, "\n"); //stderr -дескриптор файла C, он представляет собой стандартный вывод ошибок. тоже что и printf только замороченее
+
+    //кастомное логирование ошибок в stderr  void info(const char *format, ...) где '...' это va_list ~(params in c#)
+    //getMem() подсчет сколько памяти использует программа (НЕ работает => нужно пересмотреть)
     info("mem at start = %.3f Gigs", getMem());
 
+    //дикуха в Callback::find(methodName);
     initCallback(argc, argv);
+
+
     findBlockFiles();
     initHashtables();
     buildNullBlock();
